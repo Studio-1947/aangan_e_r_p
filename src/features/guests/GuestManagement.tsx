@@ -197,9 +197,57 @@ function GuestDetailDialog({
   );
 }
 
+function AddGuestDialog({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Register New Guest</DialogTitle>
+          <DialogDescription>
+            Create a guest profile for your property database.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-2">
+          <div className="space-y-2">
+            <Label htmlFor="guest-full-name">Full Name</Label>
+            <Input id="guest-full-name" placeholder="e.g. Rahul Mehta" />
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="guest-phone">Phone Number</Label>
+              <Input id="guest-phone" placeholder="+91 98765 43210" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="guest-email-addr">Email Address</Label>
+              <Input id="guest-email-addr" type="email" placeholder="rahul@example.com" />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="guest-pref-notes">Preferences / Notes</Label>
+            <Input id="guest-pref-notes" placeholder="e.g. Prefers upper floor, allergic to peanuts" />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="ghost" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button onClick={onClose}>Create Profile</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export function GuestManagement() {
   const [search, setSearch] = useState("");
   const [selectedGuest, setSelectedGuest] = useState<GuestRecord | null>(null);
+  const [addGuestOpen, setAddGuestOpen] = useState(false);
 
   const filtered = useMemo(
     () =>
@@ -226,7 +274,7 @@ export function GuestManagement() {
             {guestData.length} guests · profiles, stay history, and preferences
           </p>
         </div>
-        <Button>
+        <Button onClick={() => setAddGuestOpen(true)}>
           <Plus className="h-4 w-4" />
           Add Guest
         </Button>
@@ -324,6 +372,10 @@ export function GuestManagement() {
       <GuestDetailDialog
         guest={selectedGuest}
         onClose={() => setSelectedGuest(null)}
+      />
+      <AddGuestDialog
+        open={addGuestOpen}
+        onClose={() => setAddGuestOpen(false)}
       />
     </div>
   );

@@ -64,10 +64,60 @@ const categoryColors: Record<ItemCategory, string> = {
   Toiletries: "bg-rose-50 text-rose-700 border-rose-200",
 };
 
+function AddItemDialog({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Add Inventory Item</DialogTitle>
+          <DialogDescription>
+            Register a new item in your property stock.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-2 md:grid-cols-2">
+          <div className="space-y-2 md:col-span-2">
+            <Label htmlFor="item-name">Item Name</Label>
+            <Input id="item-name" placeholder="e.g. Lavender Soap" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="item-category">Category</Label>
+            <Input id="item-category" placeholder="e.g. Toiletries" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="item-unit">Unit</Label>
+            <Input id="item-unit" placeholder="e.g. bars" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="item-stock">Initial Stock</Label>
+            <Input id="item-stock" type="number" placeholder="20" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="item-threshold">Min Threshold</Label>
+            <Input id="item-threshold" type="number" placeholder="5" />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="ghost" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button onClick={onClose}>Add Item</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export function InventoryList() {
   const [items, setItems] = useState<InventoryItem[]>(initialInventory);
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState<ItemCategory | "All">("All");
+  const [addItemOpen, setAddItemOpen] = useState(false);
 
   const lowStockItems = useMemo(
     () => items.filter((it) => it.currentStock < it.minimumThreshold),
@@ -109,7 +159,7 @@ export function InventoryList() {
             {items.length} items · {lowStockItems.length} low stock
           </p>
         </div>
-        <Button>
+        <Button onClick={() => setAddItemOpen(true)}>
           <Plus className="h-4 w-4" />
           Add Item
         </Button>
@@ -266,6 +316,11 @@ export function InventoryList() {
           )}
         </CardContent>
       </Card>
+
+      <AddItemDialog
+        open={addItemOpen}
+        onClose={() => setAddItemOpen(false)}
+      />
     </div>
   );
 }

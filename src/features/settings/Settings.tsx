@@ -400,23 +400,43 @@ export function Settings() {
                     </div>
                   </div>
 
-                  <Separator />
+                  <div className="flex justify-end">
+                    <Button onClick={() => setPolicySaveStatus("saved")}>Save Tax Settings</Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="Policies" className="mt-0">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Policies</CardTitle>
+                  <CardDescription>
+                    Control check-in, check-out, and compliance requirements.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {policySaveStatus === "saved" ? (
+                    <div className="rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 px-4 py-3 text-sm font-medium text-emerald-800 dark:text-emerald-300">
+                      Policies and guest requirements saved successfully.
+                    </div>
+                  ) : null}
 
                   <div className="space-y-4">
                     <div>
                       <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
-                        Policies
+                        Operating Hours
                       </h3>
                       <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                        Set standard operating times and guest verification requirements.
+                        Set standard check-in and check-out timings for guests.
                       </p>
                     </div>
 
                     <div className="grid gap-4 md:grid-cols-2">
                       <div className="space-y-2">
-                        <Label htmlFor="checkInTime">Standard Check-in Time</Label>
+                        <Label htmlFor="p-checkInTime">Standard Check-in Time</Label>
                         <Input
-                          id="checkInTime"
+                          id="p-checkInTime"
                           value={taxPolicySettings.checkInTime}
                           onChange={(event) =>
                             setTaxPolicySettings((current) => ({
@@ -429,9 +449,9 @@ export function Settings() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="checkOutTime">Standard Check-out Time</Label>
+                        <Label htmlFor="p-checkOutTime">Standard Check-out Time</Label>
                         <Input
-                          id="checkOutTime"
+                          id="p-checkOutTime"
                           value={taxPolicySettings.checkOutTime}
                           onChange={(event) =>
                             setTaxPolicySettings((current) => ({
@@ -443,13 +463,26 @@ export function Settings() {
                         />
                       </div>
                     </div>
+                  </div>
+
+                  <Separator />
+
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
+                        Guest Compliance
+                      </h3>
+                      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                        Enforce verification and local regulation compliance.
+                      </p>
+                    </div>
 
                     <div className="space-y-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4">
                       <div className="flex flex-wrap items-center justify-between gap-4">
                         <div>
-                          <h4 className="font-medium text-slate-950 dark:text-slate-50">Require Government ID (Aadhaar/Passport) for Check-in</h4>
+                          <h4 className="font-medium text-slate-950 dark:text-slate-50">Require Government ID</h4>
                           <p className="text-sm text-slate-500">
-                            Enforce ID collection during the check-in process.
+                            Enforce ID collection during digital check-in.
                           </p>
                         </div>
 
@@ -468,9 +501,9 @@ export function Settings() {
 
                       <div className="flex flex-wrap items-center justify-between gap-4">
                         <div>
-                          <h4 className="font-medium text-slate-950 dark:text-slate-50">Require Local Police Verification Form for Foreign Nationals</h4>
+                          <h4 className="font-medium text-slate-950 dark:text-slate-50">Police Verification (Foreign Nationals)</h4>
                           <p className="text-sm text-slate-500">
-                            Add an extra compliance step for international guests.
+                            Add compliance step for international guests.
                           </p>
                         </div>
 
@@ -489,22 +522,6 @@ export function Settings() {
 
                   <div className="flex justify-end">
                     <Button onClick={() => setPolicySaveStatus("saved")}>Save Policies</Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="Policies" className="mt-0">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Policies</CardTitle>
-                  <CardDescription>
-                    Control check-in, check-out, and compliance requirements.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="rounded-2xl border border-dashed border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-6 text-sm text-slate-500 dark:text-slate-400">
-                    Step 4 will combine check-in/out timings, ID checks, and foreign national verification rules.
                   </div>
                 </CardContent>
               </Card>

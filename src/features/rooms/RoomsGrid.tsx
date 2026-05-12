@@ -120,6 +120,51 @@ function EditPricingDialog({
   );
 }
 
+function AddRoomDialog({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Add New Room</DialogTitle>
+          <DialogDescription>
+            Register a new room in your property inventory.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-2 md:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="room-number">Room Number</Label>
+            <Input id="room-number" placeholder="e.g. 101" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="room-type">Room Type</Label>
+            <Input id="room-type" placeholder="e.g. Deluxe Suite" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="nightly-rate">Nightly Rate (₹)</Label>
+            <Input id="nightly-rate" type="number" placeholder="4500" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="max-occupancy">Max Occupancy</Label>
+            <Input id="max-occupancy" type="number" placeholder="2" />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="ghost" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button onClick={onClose}>Add Room</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 function BlockDatesDialog({
   room,
   open,
@@ -164,6 +209,7 @@ export function RoomsGrid() {
   const [filter, setFilter] = useState<RoomStatus | "All">("All");
   const [editRoom, setEditRoom] = useState<Room | null>(null);
   const [blockRoom, setBlockRoom] = useState<Room | null>(null);
+  const [addRoomOpen, setAddRoomOpen] = useState(false);
 
   const filtered = filter === "All" ? rooms : rooms.filter((r) => r.status === filter);
 
@@ -182,7 +228,7 @@ export function RoomsGrid() {
             {rooms.length} rooms total · {rooms.filter((r) => r.status === "Available").length} available
           </p>
         </div>
-        <Button>
+        <Button onClick={() => setAddRoomOpen(true)}>
           <Plus className="h-4 w-4" />
           Add Room
         </Button>
@@ -336,6 +382,10 @@ export function RoomsGrid() {
         </div>
       )}
 
+      <AddRoomDialog
+        open={addRoomOpen}
+        onClose={() => setAddRoomOpen(false)}
+      />
       <EditPricingDialog
         room={editRoom}
         open={!!editRoom}

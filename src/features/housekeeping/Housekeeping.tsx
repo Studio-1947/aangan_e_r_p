@@ -15,6 +15,16 @@ import {
   CardHeader,
   CardTitle,
 } from "../../components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../../components/ui/dialog";
+import { Input } from "../../components/ui/input";
+import { Label } from "../../components/ui/label";
 import { demoRooms, demoStaff } from "../../data/mockData";
 
 type TaskStatus = "Pending" | "Cleaning" | "Ready" | "Maintenance";
@@ -78,9 +88,50 @@ const nextActionLabel: Record<TaskStatus, string | null> = {
   Maintenance: "Mark Resolved",
 };
 
+function AddTaskDialog({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Add Housekeeping Task</DialogTitle>
+          <DialogDescription>
+            Create a manual task for a specific room.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-2">
+          <div className="space-y-2">
+            <Label htmlFor="room-select">Room Number</Label>
+            <Input id="room-select" placeholder="e.g. 104" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="task-priority">Priority</Label>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" className="flex-1">Normal</Button>
+              <Button variant="outline" size="sm" className="flex-1 border-rose-200 text-rose-600">Urgent</Button>
+            </div>
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="ghost" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button onClick={onClose}>Create Task</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export function Housekeeping() {
   const [tasks, setTasks] = useState<HousekeepingTask[]>(initialTasks);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [addTaskOpen, setAddTaskOpen] = useState(false);
 
   function advanceStatus(taskId: string) {
     setTasks((current) =>
@@ -129,7 +180,7 @@ export function Housekeeping() {
             Track cleaning progress and assign staff to each room.
           </p>
         </div>
-        <Button>
+        <Button onClick={() => setAddTaskOpen(true)}>
           <Plus className="h-4 w-4" />
           Add Task
         </Button>
@@ -312,6 +363,11 @@ export function Housekeeping() {
           );
         })}
       </div>
+
+      <AddTaskDialog
+        open={addTaskOpen}
+        onClose={() => setAddTaskOpen(false)}
+      />
     </div>
   );
 }
