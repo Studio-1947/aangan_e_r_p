@@ -278,7 +278,7 @@ export function OccupancyBoard() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Booking Details</DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="dark:text-slate-300">
               {selectedBooking?.guestName} · Room {selectedBooking?.roomLabel}
             </DialogDescription>
           </DialogHeader>
@@ -286,12 +286,12 @@ export function OccupancyBoard() {
             <div className="space-y-4 py-2">
               <div className="grid grid-cols-2 gap-3">
                 <div className="rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 p-3">
-                  <p className="text-[10px] text-slate-400 dark:text-slate-500">Guest</p>
-                  <p className="mt-1 text-sm font-semibold">{selectedBooking.guestName}</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">{selectedBooking.contact}</p>
+                  <p className="text-[10px] text-slate-400 dark:text-slate-400">Guest</p>
+                  <p className="mt-1 text-sm font-semibold text-slate-950 dark:text-slate-50">{selectedBooking.guestName}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-300">{selectedBooking.contact}</p>
                 </div>
                 <div className="rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 p-3">
-                  <p className="text-[10px] text-slate-400 dark:text-slate-500">Status</p>
+                  <p className="text-[10px] text-slate-400 dark:text-slate-400">Status</p>
                   <div className="mt-1">
                     <Badge variant={statusBadgeVariant[selectedBooking.status] as "default" | "outline" | "success" | "warning" | "destructive"}>
                       {selectedBooking.status}
@@ -299,30 +299,30 @@ export function OccupancyBoard() {
                   </div>
                 </div>
                 <div className="rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 p-3">
-                  <p className="text-[10px] text-slate-400 dark:text-slate-500">Check-in</p>
-                  <p className="mt-1 text-sm font-semibold">
+                  <p className="text-[10px] text-slate-400 dark:text-slate-400">Check-in</p>
+                  <p className="mt-1 text-sm font-semibold text-slate-950 dark:text-slate-50">
                     {format(parseISO(selectedBooking.checkIn), "d MMM yyyy")}
                   </p>
                 </div>
                 <div className="rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 p-3">
-                  <p className="text-[10px] text-slate-400 dark:text-slate-500">Check-out</p>
-                  <p className="mt-1 text-sm font-semibold">
+                  <p className="text-[10px] text-slate-400 dark:text-slate-400">Check-out</p>
+                  <p className="mt-1 text-sm font-semibold text-slate-950 dark:text-slate-50">
                     {format(parseISO(selectedBooking.checkOut), "d MMM yyyy")}
                   </p>
                 </div>
                 <div className="rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 p-3">
-                  <p className="text-[10px] text-slate-400 dark:text-slate-500">OTA Source</p>
-                  <p className="mt-1 text-sm font-semibold">{selectedBooking.otaSource}</p>
+                  <p className="text-[10px] text-slate-400 dark:text-slate-400">OTA Source</p>
+                  <p className="mt-1 text-sm font-semibold text-slate-950 dark:text-slate-50">{selectedBooking.otaSource}</p>
                 </div>
                 <div className="rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 p-3">
-                  <p className="text-[10px] text-slate-400 dark:text-slate-500">Room</p>
-                  <p className="mt-1 text-sm font-semibold">Room {selectedBooking.roomLabel}</p>
+                  <p className="text-[10px] text-slate-400 dark:text-slate-400">Room</p>
+                  <p className="mt-1 text-sm font-semibold text-slate-950 dark:text-slate-50">Room {selectedBooking.roomLabel}</p>
                 </div>
               </div>
               {selectedBooking.notes && (
                 <div className="rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 p-3">
-                  <p className="text-[10px] text-slate-400 dark:text-slate-500">Notes</p>
-                  <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">{selectedBooking.notes}</p>
+                  <p className="text-[10px] text-slate-400 dark:text-slate-400">Notes</p>
+                  <p className="mt-1 text-xs text-slate-600 dark:text-slate-200">{selectedBooking.notes}</p>
                 </div>
               )}
             </div>

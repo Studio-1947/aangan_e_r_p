@@ -210,7 +210,7 @@ function AddGuestDialog({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Register New Guest</DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="dark:text-slate-300">
             Create a guest profile for your property database.
           </DialogDescription>
         </DialogHeader>
