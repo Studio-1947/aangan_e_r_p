@@ -20,6 +20,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
+import { useTheme } from "../../context/ThemeContext";
 import { Badge } from "../../components/ui/badge";
 import { Button } from "../../components/ui/button";
 import {
@@ -116,6 +117,8 @@ const OTA_COLORS: Record<string, string> = {
 };
 
 export function ChannelManager() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [channels, setChannels] = useState<OTAChannel[]>(initialChannels);
   const [syncingIds, setSyncingIds] = useState<string[]>([]);
   const [masterSync, setMasterSync] = useState(true);
@@ -317,24 +320,35 @@ export function ChannelManager() {
                 <BarChart data={revenueData} barSize={32}>
                   <XAxis
                     dataKey="name"
-                    tick={{ fontSize: 11, fill: "#94a3b8" }}
+                    tick={{ fontSize: 11, fill: isDark ? "#94a3b8" : "#64748b" }}
                     axisLine={false}
                     tickLine={false}
                   />
                   <YAxis
-                    tick={{ fontSize: 11, fill: "#94a3b8" }}
+                    tick={{ fontSize: 11, fill: isDark ? "#94a3b8" : "#64748b" }}
                     axisLine={false}
                     tickLine={false}
                     tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`}
                   />
                   <Tooltip
                     formatter={(v) => [`₹${Number(v).toLocaleString("en-IN")}`, "Revenue"]}
-                    contentStyle={{ borderRadius: 10, fontSize: 12, border: "1px solid #e2e8f0" }}
-                    cursor={{ fill: "#f1f5f9" }}
+                    contentStyle={{
+                      borderRadius: 10,
+                      fontSize: 12,
+                      border: "1px solid #e2e8f0",
+                      backgroundColor: isDark ? "#0f172a" : "#fff",
+                      borderColor: isDark ? "#1e293b" : "#e2e8f0",
+                    }}
+                    itemStyle={{ color: isDark ? "#f8fafc" : "#0f172a" }}
+                    labelStyle={{ color: isDark ? "#f8fafc" : "#0f172a" }}
+                    cursor={{ fill: isDark ? "rgba(255,255,255,0.05)" : "#f1f5f9" }}
                   />
                   <Bar dataKey="revenue" radius={[6, 6, 0, 0]}>
                     {revenueData.map((entry) => (
-                      <Cell key={entry.name} fill={OTA_COLORS[entry.name] ?? "#0f172a"} />
+                      <Cell
+                        key={entry.name}
+                        fill={entry.name === "Direct" && isDark ? "#f8fafc" : (OTA_COLORS[entry.name] ?? "#0f172a")}
+                      />
                     ))}
                   </Bar>
                 </BarChart>

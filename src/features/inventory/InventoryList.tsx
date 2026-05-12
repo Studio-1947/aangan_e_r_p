@@ -26,6 +26,15 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../../components/ui/dialog";
+import { Label } from "../../components/ui/label";
 
 type ItemCategory = "Linen" | "Consumables" | "Electronics" | "Kitchen" | "Toiletries";
 
@@ -225,7 +234,8 @@ export function InventoryList() {
           </CardDescription>
         </CardHeader>
         <CardContent className="p-0">
-          <Table>
+          <div className="overflow-x-auto">
+            <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Item</TableHead>
@@ -300,7 +310,8 @@ export function InventoryList() {
                 })}
               </AnimatePresence>
             </TableBody>
-          </Table>
+            </Table>
+          </div>
 
           {/* Empty state */}
           {filtered.length === 0 && (

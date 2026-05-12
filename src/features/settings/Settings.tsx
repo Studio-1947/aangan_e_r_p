@@ -61,9 +61,9 @@ export function Settings() {
   if (user?.role === "Staff") {
     return (
       <div className="grid min-h-[60vh] place-items-center">
-        <Card className="w-full max-w-xl border-rose-200 bg-white shadow-sm">
+        <Card className="w-full max-w-xl border-rose-200 dark:border-rose-800 bg-white dark:bg-slate-900 shadow-sm">
           <CardHeader className="text-center">
-            <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-rose-50 text-rose-600">
+            <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400">
               <Lock className="h-5 w-5" />
             </div>
             <CardTitle className="mt-4">Access Restricted: Owner Privileges Required</CardTitle>

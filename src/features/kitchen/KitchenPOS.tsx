@@ -214,15 +214,15 @@ export function KitchenPOS() {
         </CardHeader>
       </Card>
 
-      <Card className="sticky top-6 h-fit overflow-hidden border-slate-200 shadow-lg shadow-slate-200/60">
-        <CardHeader className="border-b border-slate-100 bg-slate-950 text-white">
+      <Card className="sticky top-6 h-fit overflow-hidden border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-lg shadow-slate-200/60 dark:shadow-slate-950/20">
+        <CardHeader className="border-b border-slate-100 dark:border-slate-800 bg-slate-950 text-white">
           <div className="flex items-center gap-3">
             <div className="grid h-10 w-10 place-items-center rounded-2xl bg-white/10 text-white">
               <ShoppingCart className="h-4 w-4" />
             </div>
             <div>
               <CardTitle className="text-white">Current Ticket</CardTitle>
-              <CardDescription className="text-slate-300">
+              <CardDescription className="text-slate-300 dark:text-slate-400">
                 Select the guest before posting a charge.
               </CardDescription>
             </div>
@@ -245,7 +245,7 @@ export function KitchenPOS() {
               <Select
                 value={selectedGuest}
                 onChange={(event) => setSelectedGuest(event.target.value)}
-                className="pr-10"
+                className="pr-10 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700"
               >
                 {mockGuestOptions.map((guest) => (
                   <option key={guest.id} value={guest.id}>
@@ -260,7 +260,7 @@ export function KitchenPOS() {
           <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm text-slate-600 dark:text-slate-400">
             {selectedGuestDetails ? (
               <>
-                Billing to <span className="font-semibold text-slate-950 dark:text-slate-50">{selectedGuestDetails.name}</span> in room {selectedGuestDetails.roomLabel}.
+                Billing to <span className="font-semibold text-slate-950 dark:text-slate-100">{selectedGuestDetails.name}</span> in room {selectedGuestDetails.roomLabel}.
               </>
             ) : (
               "Choose a checked-in guest to continue."
@@ -303,7 +303,7 @@ export function KitchenPOS() {
                           >
                             <Minus className="h-4 w-4" />
                           </Button>
-                          <span className="min-w-10 px-3 text-center text-sm font-semibold text-slate-950 dark:text-slate-50">
+                          <span className="min-w-10 px-3 text-center text-sm font-semibold text-slate-950 dark:text-slate-100">
                             {item.quantity}
                           </span>
                           <Button
@@ -321,7 +321,7 @@ export function KitchenPOS() {
                           <p className="text-xs uppercase tracking-wide text-slate-400 dark:text-slate-500">
                             Line Total
                           </p>
-                          <p className="text-base font-semibold text-slate-950 dark:text-slate-50">
+                          <p className="text-base font-semibold text-slate-950 dark:text-slate-100">
                             ₹{lineTotal.toLocaleString("en-IN")}
                           </p>
                         </div>
@@ -333,7 +333,7 @@ export function KitchenPOS() {
             </div>
           </ScrollArea>
 
-          <div className="space-y-4 rounded-2xl border border-slate-200 bg-slate-950 p-4 text-white">
+          <div className="space-y-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-950 dark:bg-slate-800 p-4 text-white">
             <div className="flex items-center justify-between text-sm text-slate-300">
               <span>Grand Total</span>
               <span className="text-2xl font-semibold text-white">

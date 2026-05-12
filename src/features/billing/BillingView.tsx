@@ -222,7 +222,7 @@ export function BillingView() {
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
-        <Card className="overflow-hidden border-slate-200/80 bg-white shadow-sm">
+        <Card className="overflow-hidden border-slate-200/80 bg-white dark:bg-slate-900 shadow-sm">
           <CardHeader className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/50">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
@@ -285,30 +285,32 @@ export function BillingView() {
                 title="Room charges"
                 description="Base room rate multiplied by the number of nights in the stay."
               />
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Description</TableHead>
-                    <TableHead>Qty</TableHead>
-                    <TableHead>Rate</TableHead>
-                    <TableHead className="text-right">Amount</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {roomCharges.map((charge) => (
-                    <TableRow key={charge.id}>
-                      <TableCell className="font-medium text-slate-950">
-                        {charge.label}
-                      </TableCell>
-                      <TableCell>{charge.quantity ?? 1}</TableCell>
-                      <TableCell>{currency(activeRoom.nightlyRate)}</TableCell>
-                      <TableCell className="text-right font-semibold text-slate-950">
-                        {currency(charge.amount)}
-                      </TableCell>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Description</TableHead>
+                      <TableHead>Qty</TableHead>
+                      <TableHead>Rate</TableHead>
+                      <TableHead className="text-right">Amount</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {roomCharges.map((charge) => (
+                      <TableRow key={charge.id}>
+                        <TableCell className="font-medium text-slate-950 dark:text-slate-50">
+                          {charge.label}
+                        </TableCell>
+                        <TableCell className="text-slate-500 dark:text-slate-400">{charge.quantity ?? 1}</TableCell>
+                        <TableCell className="text-slate-500 dark:text-slate-400">{currency(activeRoom.nightlyRate)}</TableCell>
+                        <TableCell className="text-right font-semibold text-slate-950 dark:text-slate-50">
+                          {currency(charge.amount)}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             </div>
 
             <div className="space-y-3">
@@ -317,39 +319,41 @@ export function BillingView() {
                 title="Local add-ons"
                 description="Track guest-facing extras like treks, campfire setup, and kitchen tab items."
               />
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Charge</TableHead>
-                    <TableHead>Category</TableHead>
-                    <TableHead>Qty</TableHead>
-                    <TableHead className="text-right">Amount</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {addOns.map((charge) => (
-                    <TableRow key={charge.id}>
-                      <TableCell className="font-medium text-slate-950">
-                        {charge.label}
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="outline">{charge.category}</Badge>
-                      </TableCell>
-                      <TableCell>{charge.quantity ?? 1}</TableCell>
-                      <TableCell className="text-right font-semibold text-slate-950">
-                        {currency(charge.amount)}
-                      </TableCell>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Charge</TableHead>
+                      <TableHead>Category</TableHead>
+                      <TableHead>Qty</TableHead>
+                      <TableHead className="text-right">Amount</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {addOns.map((charge) => (
+                      <TableRow key={charge.id}>
+                        <TableCell className="font-medium text-slate-950 dark:text-slate-50">
+                          {charge.label}
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="outline">{charge.category}</Badge>
+                        </TableCell>
+                        <TableCell className="text-slate-500 dark:text-slate-400">{charge.quantity ?? 1}</TableCell>
+                        <TableCell className="text-right font-semibold text-slate-950 dark:text-slate-50">
+                          {currency(charge.amount)}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             </div>
           </CardContent>
         </Card>
 
         <div className="space-y-6">
-          <Card className="border-slate-200/80 bg-white shadow-sm">
-            <CardHeader className="border-b border-slate-100">
+          <Card className="border-slate-200/80 bg-white dark:bg-slate-900 shadow-sm">
+            <CardHeader className="border-b border-slate-100 dark:border-slate-800">
               <CardTitle>Invoice summary</CardTitle>
               <CardDescription>
                 Totals update as you add or remove folio charges.
@@ -408,7 +412,7 @@ export function BillingView() {
             </CardContent>
           </Card>
 
-          <Card className="border-slate-200/80 bg-white shadow-sm">
+          <Card className="border-slate-200/80 bg-white dark:bg-slate-900 shadow-sm">
             <CardHeader>
               <CardTitle>Recent folio activity</CardTitle>
               <CardDescription>

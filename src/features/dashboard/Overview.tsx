@@ -12,6 +12,7 @@ import {
   Cell,
   Legend,
 } from "recharts";
+import { useTheme } from "../../context/ThemeContext";
 import {
   BedDouble,
   CalendarCheck,
@@ -109,6 +110,9 @@ function CustomTooltip({ active, payload, label }: any) {
 }
 
 export function Overview() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   const kpis = useMemo(() => {
     const occupiedRooms = demoRooms.filter((r) => r.status === "Occupied").length;
     const availableRooms = demoRooms.filter((r) => r.status === "Available").length;
@@ -200,7 +204,7 @@ export function Overview() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <Card className="border-slate-200/80 bg-white shadow-sm">
+          <Card className="border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <CardHeader className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/50">
               <CardTitle>Revenue Trend</CardTitle>
               <CardDescription>Monthly revenue across the year (₹)</CardDescription>
@@ -210,18 +214,25 @@ export function Overview() {
                 <BarChart data={revenueTrend} barSize={18}>
                   <XAxis
                     dataKey="month"
-                    tick={{ fontSize: 11, fill: "#94a3b8" }}
+                    tick={{ fontSize: 11, fill: isDark ? "#94a3b8" : "#64748b" }}
                     axisLine={false}
                     tickLine={false}
                   />
                   <YAxis
-                    tick={{ fontSize: 11, fill: "#94a3b8" }}
+                    tick={{ fontSize: 11, fill: isDark ? "#64748b" : "#94a3b8" }}
                     axisLine={false}
                     tickLine={false}
                     tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`}
                   />
-                  <Tooltip content={<CustomTooltip />} cursor={{ fill: "#f1f5f9" }} />
-                  <Bar dataKey="revenue" radius={[6, 6, 0, 0]} fill="#0f172a" />
+                  <Tooltip
+                    content={<CustomTooltip />}
+                    cursor={{ fill: isDark ? "rgba(255,255,255,0.05)" : "#f1f5f9" }}
+                  />
+                  <Bar
+                    dataKey="revenue"
+                    radius={[6, 6, 0, 0]}
+                    fill={isDark ? "#f8fafc" : "#0f172a"}
+                  />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -234,7 +245,7 @@ export function Overview() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <Card className="border-slate-200/80 bg-white shadow-sm">
+          <Card className="border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <CardHeader className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/50">
               <CardTitle>Booking Sources</CardTitle>
               <CardDescription>Channel split this month</CardDescription>
@@ -259,7 +270,7 @@ export function Overview() {
                     iconType="circle"
                     iconSize={8}
                     formatter={(value) => (
-                      <span className="text-xs text-slate-600">{value}</span>
+                      <span className="text-xs text-slate-600 dark:text-slate-300">{value}</span>
                     )}
                   />
                   <Tooltip
@@ -268,7 +279,11 @@ export function Overview() {
                       borderRadius: 10,
                       fontSize: 12,
                       border: "1px solid #e2e8f0",
+                      backgroundColor: isDark ? "#0f172a" : "#fff",
+                      borderColor: isDark ? "#1e293b" : "#e2e8f0",
                     }}
+                    itemStyle={{ color: isDark ? "#f8fafc" : "#0f172a" }}
+                    labelStyle={{ color: isDark ? "#f8fafc" : "#0f172a" }}
                   />
                 </PieChart>
               </ResponsiveContainer>
@@ -285,7 +300,7 @@ export function Overview() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.45 }}
         >
-          <Card className="border-slate-200/80 bg-white shadow-sm">
+          <Card className="border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <CardHeader className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/50">
               <CardTitle>Today's Arrivals</CardTitle>
               <CardDescription>Guests checking in today</CardDescription>
@@ -328,7 +343,7 @@ export function Overview() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <Card className="border-slate-200/80 bg-white shadow-sm">
+          <Card className="border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
             <CardHeader className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/50">
               <CardTitle>Recent Bookings</CardTitle>
               <CardDescription>Latest reservations across all channels</CardDescription>
@@ -340,10 +355,10 @@ export function Overview() {
                   className="flex items-center justify-between px-4 py-3"
                 >
                   <div>
-                    <p className="text-sm font-medium text-slate-950">
+                    <p className="text-sm font-medium text-slate-950 dark:text-slate-50">
                       {booking.guestName}
                     </p>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
                       Room {booking.roomLabel} ·{" "}
                       {format(parseISO(booking.checkIn), "d MMM")} –{" "}
                       {format(parseISO(booking.checkOut), "d MMM")}

@@ -240,7 +240,7 @@ export function DashboardShell() {
       </AnimatePresence>
 
       {/* Main content */}
-      <div className={`flex flex-1 flex-col transition-all duration-300 ease-in-out ${
+      <div className={`flex flex-1 flex-col min-w-0 transition-all duration-300 ease-in-out ${
         sidebarCollapsed ? "lg:pl-20" : "lg:pl-64"
       }`}>
         {/* Topbar */}
@@ -285,7 +285,7 @@ export function DashboardShell() {
         </header>
 
         {/* Page content — extra bottom padding on mobile for bottom nav */}
-        <main className="flex-1 p-4 pb-24 sm:p-6 sm:pb-6 lg:pb-6">
+        <main className="flex-1 min-w-0 p-4 pb-24 sm:p-6 sm:pb-6 lg:pb-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={resolvedView}

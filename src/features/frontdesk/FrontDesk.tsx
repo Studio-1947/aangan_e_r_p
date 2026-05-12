@@ -139,7 +139,8 @@ export function FrontDesk() {
             <CardDescription>Guests expected to complete digital check-in at the front desk.</CardDescription>
           </CardHeader>
           <CardContent className="p-0">
-            <Table>
+            <div className="overflow-x-auto">
+              <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead>Guest Name</TableHead>
@@ -171,6 +172,7 @@ export function FrontDesk() {
                 ))}
               </TableBody>
             </Table>
+          </div>
           </CardContent>
         </Card>
 
@@ -180,7 +182,8 @@ export function FrontDesk() {
             <CardDescription>Guests checking out today with any pending balance shown for settlement.</CardDescription>
           </CardHeader>
           <CardContent className="p-0">
-            <Table>
+            <div className="overflow-x-auto">
+              <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead>Guest Name</TableHead>
@@ -213,7 +216,8 @@ export function FrontDesk() {
                   </TableRow>
                 ))}
               </TableBody>
-            </Table>
+              </Table>
+            </div>
           </CardContent>
         </Card>
       </div>

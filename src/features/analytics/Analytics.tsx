@@ -121,19 +121,19 @@ export function Analytics() {
         />
       </div>
 
-      <Card className="border-slate-200/80 bg-white shadow-sm">
+      <Card className="border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
         <CardHeader className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/50">
           <CardTitle>Revenue Trends</CardTitle>
           <CardDescription>Monthly trend visualization built with simple CSS bars for a light demo footprint.</CardDescription>
         </CardHeader>
         <CardContent className="p-6">
-          <div className="grid h-72 grid-cols-12 items-end gap-3 rounded-3xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4">
+          <div className="grid h-72 grid-cols-12 items-end gap-3 rounded-3xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 p-4">
             {revenueTrend.map((point) => {
               return (
                 <div key={point.label} className="flex h-full flex-col items-center justify-end gap-2">
                   <div className="flex w-full flex-1 items-end justify-center">
                     <div
-                      className="w-full max-w-10 rounded-t-2xl bg-gradient-to-t from-slate-950 via-slate-800 to-emerald-500 shadow-lg shadow-slate-950/15"
+                      className="w-full max-w-10 rounded-t-2xl bg-gradient-to-t from-slate-900 via-slate-600 to-emerald-500 dark:from-slate-100 dark:via-slate-400 dark:to-emerald-400 shadow-lg shadow-slate-950/15"
                       style={{ height: `${Math.max(24, point.value)}%` }}
                     />
                   </div>
@@ -144,7 +144,7 @@ export function Analytics() {
           </div>
           <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
             <span className="inline-flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-slate-950" />
+              <span className="h-2.5 w-2.5 rounded-full bg-slate-950 dark:bg-slate-100" />
               Higher bars represent stronger booking periods.
             </span>
           </div>
