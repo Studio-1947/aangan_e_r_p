@@ -293,7 +293,7 @@ export function OccupancyBoard() {
                 <div className="rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 p-3">
                   <p className="text-[10px] text-slate-400 dark:text-slate-500">Status</p>
                   <div className="mt-1">
-                    <Badge variant={statusBadgeVariant[selectedBooking.status] as any}>
+                    <Badge variant={statusBadgeVariant[selectedBooking.status] as "default" | "outline" | "success" | "warning" | "destructive"}>
                       {selectedBooking.status}
                     </Badge>
                   </div>

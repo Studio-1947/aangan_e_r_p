@@ -33,7 +33,7 @@ export type GuestOption = {
   roomLabel: string;
 };
 
-export const menuData: Record<MenuCategory, MenuItem[]> = {
+const menuData: Record<MenuCategory, MenuItem[]> = {
   Beverages: [
     {
       id: "bev-darjeeling-tea",
@@ -90,7 +90,7 @@ export const menuData: Record<MenuCategory, MenuItem[]> = {
   ],
 };
 
-export const mockGuestOptions: GuestOption[] = [
+const mockGuestOptions: GuestOption[] = [
   { id: "guest-101", name: "Karan Verma", roomLabel: "101" },
   { id: "guest-103", name: "Maya Iyer", roomLabel: "103" },
   { id: "guest-201", name: "Nikhil Rao", roomLabel: "201" },
