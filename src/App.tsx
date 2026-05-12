@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { Login } from "./features/auth/Login";
 import { Onboarding } from "./features/auth/Onboarding";
+import { LandingPage } from "./features/landing/LandingPage";
 import { useAuth } from "./context/AuthContext";
 import DashboardShell from "./features/dashboard/DashboardShell";
 
+type View = "landing" | "login" | "onboarding";
+
 function App() {
   const { user, property, isAuthenticated } = useAuth();
-  const [view, setView] = useState<"login" | "onboarding">("login");
+  const [view, setView] = useState<View>("landing");
 
   useEffect(() => {
     if (!isAuthenticated) {
-      setView("login");
+      setView("landing");
     }
   }, [isAuthenticated]);
 
@@ -22,7 +25,16 @@ function App() {
     return <Onboarding onBackToLogin={() => setView("login")} />;
   }
 
-  return <Login onSignup={() => setView("onboarding")} />;
+  if (view === "login") {
+    return <Login onSignup={() => setView("onboarding")} />;
+  }
+
+  return (
+    <LandingPage
+      onDemoLogin={() => setView("login")}
+      onCreateHomestay={() => setView("onboarding")}
+    />
+  );
 }
 
 export default App;

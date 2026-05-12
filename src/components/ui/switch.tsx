@@ -10,7 +10,7 @@ export function Switch({ className, checked = false, disabled = false, ...props 
       disabled={disabled}
       className={cn(
         'relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border transition-colors',
-        checked ? 'border-emerald-500 bg-emerald-500' : 'border-slate-300 bg-slate-200',
+        checked ? 'border-emerald-500 bg-emerald-500' : 'border-slate-300 dark:border-slate-600 bg-slate-200 dark:bg-slate-700',
         disabled && 'cursor-not-allowed opacity-60',
         className,
       )}

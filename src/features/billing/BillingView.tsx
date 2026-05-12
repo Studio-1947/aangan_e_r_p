@@ -128,12 +128,12 @@ function SectionLabel({
 }) {
   return (
     <div className="flex items-start gap-3">
-      <div className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-slate-950 text-white">
+      <div className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-slate-950 dark:bg-slate-100 text-white dark:text-slate-950">
         <Icon className="h-4 w-4" />
       </div>
       <div>
-        <h3 className="font-semibold text-slate-950">{title}</h3>
-        <p className="text-sm text-slate-500">{description}</p>
+        <h3 className="font-semibold text-slate-950 dark:text-slate-50">{title}</h3>
+        <p className="text-sm text-slate-500 dark:text-slate-400">{description}</p>
       </div>
     </div>
   );
@@ -197,13 +197,13 @@ export function BillingView() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">
             Billing & Folio
           </p>
-          <h2 className="mt-1 text-3xl font-semibold tracking-tight text-slate-950">
+          <h2 className="mt-1 text-3xl font-semibold tracking-tight text-slate-950 dark:text-slate-50">
             Active guest invoice
           </h2>
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
             Review room charges, add-ons, and checkout totals for the current
             stay.
           </p>
@@ -223,7 +223,7 @@ export function BillingView() {
 
       <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
         <Card className="overflow-hidden border-slate-200/80 bg-white shadow-sm">
-          <CardHeader className="border-b border-slate-100 bg-slate-50/70">
+          <CardHeader className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/50">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <CardTitle className="flex items-center gap-2">
@@ -246,34 +246,34 @@ export function BillingView() {
 
           <CardContent className="space-y-6 p-6">
             <div className="grid gap-4 md:grid-cols-3">
-              <div className="rounded-3xl border border-slate-200 bg-slate-50 p-4">
-                <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+              <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4">
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
                   Guest
                 </p>
-                <p className="mt-2 font-semibold text-slate-950">
+                <p className="mt-2 font-semibold text-slate-950 dark:text-slate-50">
                   {activeBooking.guestName}
                 </p>
-                <p className="text-sm text-slate-500">
+                <p className="text-sm text-slate-500 dark:text-slate-400">
                   {activeBooking.contact}
                 </p>
               </div>
-              <div className="rounded-3xl border border-slate-200 bg-slate-50 p-4">
-                <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+              <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4">
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
                   Room
                 </p>
-                <p className="mt-2 font-semibold text-slate-950">
+                <p className="mt-2 font-semibold text-slate-950 dark:text-slate-50">
                   Room {activeRoom.number}
                 </p>
-                <p className="text-sm text-slate-500">{activeRoom.type}</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">{activeRoom.type}</p>
               </div>
-              <div className="rounded-3xl border border-slate-200 bg-slate-50 p-4">
-                <p className="text-xs uppercase tracking-[0.18em] text-slate-400">
+              <div className="rounded-3xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4">
+                <p className="text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
                   Nights
                 </p>
-                <p className="mt-2 font-semibold text-slate-950">
+                <p className="mt-2 font-semibold text-slate-950 dark:text-slate-50">
                   {nightCount} nights
                 </p>
-                <p className="text-sm text-slate-500">
+                <p className="text-sm text-slate-500 dark:text-slate-400">
                   Base rate {currency(activeRoom.nightlyRate)} / night
                 </p>
               </div>
@@ -369,15 +369,15 @@ export function BillingView() {
               </div>
 
               <div className="grid gap-3">
-                <div className="flex items-center justify-between rounded-2xl border border-slate-200 px-4 py-3">
-                  <span className="text-sm text-slate-600">Room charges</span>
-                  <span className="font-semibold text-slate-950">
+                <div className="flex items-center justify-between rounded-2xl border border-slate-200 dark:border-slate-700 px-4 py-3">
+                  <span className="text-sm text-slate-600 dark:text-slate-400">Room charges</span>
+                  <span className="font-semibold text-slate-950 dark:text-slate-50">
                     {currency(roomChargeTotal)}
                   </span>
                 </div>
-                <div className="flex items-center justify-between rounded-2xl border border-slate-200 px-4 py-3">
-                  <span className="text-sm text-slate-600">Local add-ons</span>
-                  <span className="font-semibold text-slate-950">
+                <div className="flex items-center justify-between rounded-2xl border border-slate-200 dark:border-slate-700 px-4 py-3">
+                  <span className="text-sm text-slate-600 dark:text-slate-400">Local add-ons</span>
+                  <span className="font-semibold text-slate-950 dark:text-slate-50">
                     {currency(
                       addOns.reduce(
                         (total, charge) => total + charge.amount,
@@ -389,19 +389,19 @@ export function BillingView() {
                 {extras.map((charge) => (
                   <div
                     key={charge.id}
-                    className="flex items-center justify-between rounded-2xl border border-slate-200 px-4 py-3"
+                    className="flex items-center justify-between rounded-2xl border border-slate-200 dark:border-slate-700 px-4 py-3"
                   >
-                    <span className="text-sm text-slate-600">
+                    <span className="text-sm text-slate-600 dark:text-slate-400">
                       {charge.label}
                     </span>
-                    <span className="font-semibold text-slate-950">
+                    <span className="font-semibold text-slate-950 dark:text-slate-50">
                       {currency(charge.amount)}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="rounded-3xl border border-emerald-200 bg-emerald-50 px-4 py-4 text-sm text-emerald-900">
+              <div className="rounded-3xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 px-4 py-4 text-sm text-emerald-900 dark:text-emerald-300">
                 Final invoice action will lock the folio, create a checkout
                 receipt, and mark the booking as closed.
               </div>
@@ -423,7 +423,7 @@ export function BillingView() {
               ].map((entry) => (
                 <div
                   key={entry}
-                  className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600"
+                  className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm text-slate-600 dark:text-slate-400"
                 >
                   {entry}
                 </div>
@@ -445,7 +445,7 @@ export function BillingView() {
           <div className="grid gap-4 py-2">
             <div className="space-y-2">
               <label
-                className="text-sm font-medium text-slate-700"
+                className="text-sm font-medium text-slate-700 dark:text-slate-300"
                 htmlFor="charge-label"
               >
                 Charge label
@@ -465,7 +465,7 @@ export function BillingView() {
 
             <div className="space-y-2">
               <label
-                className="text-sm font-medium text-slate-700"
+                className="text-sm font-medium text-slate-700 dark:text-slate-300"
                 htmlFor="charge-amount"
               >
                 Amount

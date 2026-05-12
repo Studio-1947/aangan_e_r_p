@@ -14,13 +14,13 @@ export function TableBody({ className, ...props }: HTMLAttributes<HTMLTableSecti
 }
 
 export function TableRow({ className, ...props }: HTMLAttributes<HTMLTableRowElement>) {
-  return <tr className={cn('border-b border-slate-200 transition-colors hover:bg-slate-50', className)} {...props} />
+  return <tr className={cn('border-b border-slate-200 dark:border-slate-800 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/50', className)} {...props} />
 }
 
 export function TableHead({ className, ...props }: ThHTMLAttributes<HTMLTableCellElement>) {
-  return <th className={cn('h-11 px-4 text-left align-middle font-medium text-slate-500', className)} {...props} />
+  return <th className={cn('h-11 px-4 text-left align-middle font-medium text-slate-500 dark:text-slate-400', className)} {...props} />
 }
 
 export function TableCell({ className, ...props }: TdHTMLAttributes<HTMLTableCellElement>) {
-  return <td className={cn('px-4 py-4 align-middle text-slate-700', className)} {...props} />
+  return <td className={cn('px-4 py-4 align-middle text-slate-700 dark:text-slate-300', className)} {...props} />
 }

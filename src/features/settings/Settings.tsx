@@ -80,13 +80,13 @@ export function Settings() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">
             Settings & Configuration
           </p>
-          <h2 className="mt-1 text-3xl font-semibold tracking-tight text-slate-950">
+          <h2 className="mt-1 text-3xl font-semibold tracking-tight text-slate-950 dark:text-slate-50">
             {property?.name || "Homestay"} Controls
           </h2>
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
             Configure core property details, pricing rules, taxes, and policies from one place.
           </p>
         </div>
@@ -100,7 +100,7 @@ export function Settings() {
         onValueChange={(value) => setActiveSection(value as (typeof settingsSections)[number])}
       >
         <div className="grid gap-6 lg:grid-cols-[240px_minmax(0,1fr)]">
-          <TabsList className="flex h-fit flex-col items-stretch gap-2 rounded-3xl bg-white p-3 shadow-sm">
+          <TabsList className="flex h-fit flex-col items-stretch gap-2 rounded-3xl bg-white dark:bg-slate-900 border dark:border-slate-800 p-3 shadow-sm">
             {settingsSections.map((section) => (
               <TabsTrigger
                 key={section}
@@ -123,7 +123,7 @@ export function Settings() {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   {saveStatus === "saved" ? (
-                    <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800">
+                    <div className="rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 px-4 py-3 text-sm font-medium text-emerald-800 dark:text-emerald-300">
                       General settings saved for {generalSettings.homestayName || "this property"}.
                     </div>
                   ) : null}
@@ -191,10 +191,10 @@ export function Settings() {
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4">
+                  <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-4">
                     <div>
-                      <h3 className="font-medium text-slate-950">Accepting New Bookings</h3>
-                      <p className="text-sm text-slate-500">
+                      <h3 className="font-medium text-slate-950 dark:text-slate-50">Accepting New Bookings</h3>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">
                         Toggle this off to temporarily pause new reservations.
                       </p>
                     </div>
@@ -230,12 +230,12 @@ export function Settings() {
                     {roomCategories.map((room) => (
                       <div
                         key={room.id}
-                        className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
+                        className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4"
                       >
                         <div className="flex flex-wrap items-center justify-between gap-3">
                           <div>
-                            <h3 className="font-semibold text-slate-950">{room.name}</h3>
-                            <p className="text-sm text-slate-500">Configure pricing and occupancy for this room type.</p>
+                            <h3 className="font-semibold text-slate-950 dark:text-slate-50">{room.name}</h3>
+                            <p className="text-sm text-slate-500 dark:text-slate-400">Configure pricing and occupancy for this room type.</p>
                           </div>
 
                           <Badge variant="outline">Room Category</Badge>
@@ -322,17 +322,17 @@ export function Settings() {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   {policySaveStatus === "saved" ? (
-                    <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-800">
+                    <div className="rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 px-4 py-3 text-sm font-medium text-emerald-800 dark:text-emerald-300">
                       Policies and tax settings saved successfully.
                     </div>
                   ) : null}
 
                   <div className="space-y-4">
                     <div>
-                      <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
+                      <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
                         Taxes
                       </h3>
-                      <p className="mt-1 text-sm text-slate-500">
+                      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                         Configure the percentage charges that apply to room bookings and kitchen services.
                       </p>
                     </div>
@@ -404,10 +404,10 @@ export function Settings() {
 
                   <div className="space-y-4">
                     <div>
-                      <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
+                      <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
                         Policies
                       </h3>
-                      <p className="mt-1 text-sm text-slate-500">
+                      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                         Set standard operating times and guest verification requirements.
                       </p>
                     </div>
@@ -444,10 +444,10 @@ export function Settings() {
                       </div>
                     </div>
 
-                    <div className="space-y-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                    <div className="space-y-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4">
                       <div className="flex flex-wrap items-center justify-between gap-4">
                         <div>
-                          <h4 className="font-medium text-slate-950">Require Government ID (Aadhaar/Passport) for Check-in</h4>
+                          <h4 className="font-medium text-slate-950 dark:text-slate-50">Require Government ID (Aadhaar/Passport) for Check-in</h4>
                           <p className="text-sm text-slate-500">
                             Enforce ID collection during the check-in process.
                           </p>
@@ -468,7 +468,7 @@ export function Settings() {
 
                       <div className="flex flex-wrap items-center justify-between gap-4">
                         <div>
-                          <h4 className="font-medium text-slate-950">Require Local Police Verification Form for Foreign Nationals</h4>
+                          <h4 className="font-medium text-slate-950 dark:text-slate-50">Require Local Police Verification Form for Foreign Nationals</h4>
                           <p className="text-sm text-slate-500">
                             Add an extra compliance step for international guests.
                           </p>
@@ -503,7 +503,7 @@ export function Settings() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-6 text-sm text-slate-500">
+                  <div className="rounded-2xl border border-dashed border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-6 text-sm text-slate-500 dark:text-slate-400">
                     Step 4 will combine check-in/out timings, ID checks, and foreign national verification rules.
                   </div>
                 </CardContent>

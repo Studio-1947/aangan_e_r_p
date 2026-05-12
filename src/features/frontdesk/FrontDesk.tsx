@@ -118,23 +118,23 @@ export function FrontDesk() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Front desk</p>
-          <h2 className="mt-1 text-3xl font-semibold tracking-tight text-slate-950">Today's operations</h2>
-          <p className="mt-2 text-sm text-slate-500">Daily arrivals, check-ins, and departures for {operationalDay}.</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">Front desk</p>
+          <h2 className="mt-1 text-3xl font-semibold tracking-tight text-slate-950 dark:text-slate-50">Today's operations</h2>
+          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Daily arrivals, check-ins, and departures for {operationalDay}.</p>
         </div>
 
         <Badge variant="outline">Live operations</Badge>
       </div>
 
       {checkOutNote ? (
-        <div className="rounded-3xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+        <div className="rounded-3xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/40 px-4 py-3 text-sm text-amber-900 dark:text-amber-300">
           {checkOutNote}
         </div>
       ) : null}
 
       <div className="grid gap-6 xl:grid-cols-2">
         <Card className="border-slate-200/80 bg-white shadow-sm">
-          <CardHeader className="border-b border-slate-100 bg-slate-50/70">
+          <CardHeader className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/50">
             <CardTitle>Today's Arrivals</CardTitle>
             <CardDescription>Guests expected to complete digital check-in at the front desk.</CardDescription>
           </CardHeader>
@@ -152,12 +152,12 @@ export function FrontDesk() {
                 {arrivalsWithStatus.map((guest) => (
                   <TableRow key={guest.id}>
                     <TableCell>
-                      <div className="font-medium text-slate-950">{guest.guestName}</div>
-                      <div className="text-xs text-slate-500">ETA {guest.checkInTime}</div>
+                      <div className="font-medium text-slate-950 dark:text-slate-50">{guest.guestName}</div>
+                      <div className="text-xs text-slate-500 dark:text-slate-400">ETA {guest.checkInTime}</div>
                     </TableCell>
                     <TableCell>
-                      <div className="font-medium text-slate-950">Room {roomLabelById.get(guest.roomId) ?? guest.roomLabel}</div>
-                      <div className="text-xs text-slate-500">{guest.contact}</div>
+                      <div className="font-medium text-slate-950 dark:text-slate-50">Room {roomLabelById.get(guest.roomId) ?? guest.roomLabel}</div>
+                      <div className="text-xs text-slate-500 dark:text-slate-400">{guest.contact}</div>
                     </TableCell>
                     <TableCell>
                       {guest.checkedIn ? <Badge variant="success">Checked In</Badge> : <Badge variant="warning">Pending</Badge>}
@@ -175,7 +175,7 @@ export function FrontDesk() {
         </Card>
 
         <Card className="border-slate-200/80 bg-white shadow-sm">
-          <CardHeader className="border-b border-slate-100 bg-slate-50/70">
+          <CardHeader className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/50">
             <CardTitle>Today's Departures</CardTitle>
             <CardDescription>Guests checking out today with any pending balance shown for settlement.</CardDescription>
           </CardHeader>
@@ -193,12 +193,12 @@ export function FrontDesk() {
                 {todayDepartures.map((guest) => (
                   <TableRow key={guest.id}>
                     <TableCell>
-                      <div className="font-medium text-slate-950">{guest.guestName}</div>
-                      <div className="text-xs text-slate-500">{guest.contact}</div>
+                      <div className="font-medium text-slate-950 dark:text-slate-50">{guest.guestName}</div>
+                      <div className="text-xs text-slate-500 dark:text-slate-400">{guest.contact}</div>
                     </TableCell>
                     <TableCell>
-                      <div className="font-medium text-slate-950">Room {guest.roomLabel}</div>
-                      <div className="text-xs text-slate-500">Checkout today</div>
+                      <div className="font-medium text-slate-950 dark:text-slate-50">Room {guest.roomLabel}</div>
+                      <div className="text-xs text-slate-500 dark:text-slate-400">Checkout today</div>
                     </TableCell>
                     <TableCell>
                       <Badge variant={guest.pendingBalance > 0 ? 'warning' : 'success'}>
@@ -229,7 +229,7 @@ export function FrontDesk() {
 
           <div className="space-y-4 py-2">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700" htmlFor="guest-id-upload">
+              <label className="text-sm font-medium text-slate-700 dark:text-slate-300" htmlFor="guest-id-upload">
                 Guest ID Verification
               </label>
               <Input id="guest-id-upload" type="file" accept="image/*,.pdf" />
@@ -237,7 +237,7 @@ export function FrontDesk() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700" htmlFor="contact-confirmation">
+              <label className="text-sm font-medium text-slate-700 dark:text-slate-300" htmlFor="contact-confirmation">
                 Contact Details Confirmation
               </label>
               <Input
@@ -249,7 +249,7 @@ export function FrontDesk() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700" htmlFor="dietary-notes">
+              <label className="text-sm font-medium text-slate-700 dark:text-slate-300" htmlFor="dietary-notes">
                 Dietary Preferences / Special Requests
               </label>
               <Textarea

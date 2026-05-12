@@ -32,14 +32,14 @@ function MetricCard({
   hint: string
 }) {
   return (
-    <Card className="border-slate-200/80 bg-white shadow-sm">
+    <Card className="border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
       <CardContent className="flex items-start justify-between gap-4 pt-6">
         <div>
-          <p className="text-sm text-slate-500">{title}</p>
-          <div className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">{value}</div>
-          <p className="mt-1 text-xs text-slate-500">{hint}</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">{title}</p>
+          <div className="mt-2 text-3xl font-semibold tracking-tight text-slate-950 dark:text-slate-50">{value}</div>
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{hint}</p>
         </div>
-        <div className="grid h-12 w-12 place-items-center rounded-2xl bg-slate-950 text-white shadow-lg shadow-slate-950/20">
+        <div className="grid h-12 w-12 place-items-center rounded-2xl bg-slate-950 dark:bg-slate-100 text-white dark:text-slate-950 shadow-lg shadow-slate-950/20">
           <Icon className="h-5 w-5" />
         </div>
       </CardContent>
@@ -63,15 +63,15 @@ export function Analytics() {
 
   if (!isOwner) {
     return (
-      <Card className="border-amber-200 bg-amber-50 shadow-sm">
+      <Card className="border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 shadow-sm">
         <CardContent className="flex items-start gap-4 pt-6">
-          <div className="grid h-12 w-12 place-items-center rounded-2xl bg-amber-100 text-amber-800">
+          <div className="grid h-12 w-12 place-items-center rounded-2xl bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-400">
             <ShieldAlert className="h-5 w-5" />
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-amber-700">Restricted Access</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">Analytics is owner-only</h2>
-            <p className="mt-2 max-w-2xl text-sm text-slate-600">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-amber-700 dark:text-amber-400">Restricted Access</p>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950 dark:text-slate-50">Analytics is owner-only</h2>
+            <p className="mt-2 max-w-2xl text-sm text-slate-600 dark:text-slate-400">
               Staff accounts can manage daily operations, but reporting and revenue analytics remain available to the property owner.
             </p>
           </div>
@@ -84,9 +84,9 @@ export function Analytics() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Analytics & reporting</p>
-          <h2 className="mt-1 text-3xl font-semibold tracking-tight text-slate-950">Owner overview</h2>
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">Analytics & reporting</p>
+          <h2 className="mt-1 text-3xl font-semibold tracking-tight text-slate-950 dark:text-slate-50">Owner overview</h2>
+          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
             A quick view of revenue, occupancy, bookings, and trend performance for the current month.
           </p>
         </div>
@@ -122,12 +122,12 @@ export function Analytics() {
       </div>
 
       <Card className="border-slate-200/80 bg-white shadow-sm">
-        <CardHeader className="border-b border-slate-100 bg-slate-50/70">
+        <CardHeader className="border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/50">
           <CardTitle>Revenue Trends</CardTitle>
           <CardDescription>Monthly trend visualization built with simple CSS bars for a light demo footprint.</CardDescription>
         </CardHeader>
         <CardContent className="p-6">
-          <div className="grid h-72 grid-cols-12 items-end gap-3 rounded-3xl border border-slate-200 bg-slate-50 p-4">
+          <div className="grid h-72 grid-cols-12 items-end gap-3 rounded-3xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4">
             {revenueTrend.map((point) => {
               return (
                 <div key={point.label} className="flex h-full flex-col items-center justify-end gap-2">
@@ -137,12 +137,12 @@ export function Analytics() {
                       style={{ height: `${Math.max(24, point.value)}%` }}
                     />
                   </div>
-                  <div className="text-[10px] font-medium text-slate-500">{point.label}</div>
+                  <div className="text-[10px] font-medium text-slate-500 dark:text-slate-400">{point.label}</div>
                 </div>
               )
             })}
           </div>
-          <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-slate-500">
+          <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
             <span className="inline-flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-slate-950" />
               Higher bars represent stronger booking periods.

@@ -18,28 +18,18 @@ export function Dialog({ open, onOpenChange, children }: { open: boolean; onOpen
 
 export function DialogContent({ className, children }: HTMLAttributes<HTMLDivElement> & { children: ReactNode }) {
   const context = useContext(DialogContext)
-  if (!context) {
-    throw new Error('DialogContent must be used within Dialog')
-  }
+  if (!context) throw new Error('DialogContent must be used within Dialog')
 
   useEffect(() => {
-    if (!context.open) {
-      return
-    }
-
+    if (!context.open) return
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        context.setOpen(false)
-      }
+      if (event.key === 'Escape') context.setOpen(false)
     }
-
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [context])
 
-  if (!context.open) {
-    return null
-  }
+  if (!context.open) return null
 
   return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -51,7 +41,7 @@ export function DialogContent({ className, children }: HTMLAttributes<HTMLDivEle
       />
       <div
         className={cn(
-          'relative z-10 w-full max-w-2xl rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl shadow-slate-950/20',
+          'relative z-10 w-full max-w-2xl rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-2xl shadow-slate-950/20',
           className,
         )}
       >
@@ -67,19 +57,16 @@ export function DialogHeader({ className, ...props }: HTMLAttributes<HTMLDivElem
 }
 
 export function DialogTitle({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) {
-  return <h3 className={cn('text-xl font-semibold tracking-tight text-slate-950', className)} {...props} />
+  return <h3 className={cn('text-xl font-semibold tracking-tight text-slate-950 dark:text-slate-50', className)} {...props} />
 }
 
 export function DialogDescription({ className, ...props }: HTMLAttributes<HTMLParagraphElement>) {
-  return <p className={cn('text-sm text-slate-500', className)} {...props} />
+  return <p className={cn('text-sm text-slate-500 dark:text-slate-400', className)} {...props} />
 }
 
 export function DialogClose() {
   const context = useContext(DialogContext)
-  if (!context) {
-    throw new Error('DialogClose must be used within Dialog')
-  }
-
+  if (!context) throw new Error('DialogClose must be used within Dialog')
   return (
     <Button variant="ghost" size="icon" onClick={() => context.setOpen(false)}>
       <X className="h-4 w-4" />
