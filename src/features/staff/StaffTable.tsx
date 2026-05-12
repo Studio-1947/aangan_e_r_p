@@ -202,11 +202,11 @@ export function StaffTable() {
 
                     {/* Contact */}
                     <div className="space-y-1.5">
-                      <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                      <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-300">
                         <Phone className="h-3.5 w-3.5 text-slate-400 dark:text-slate-500" />
                         {member.contact || "—"}
                       </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                      <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-300">
                         <Mail className="h-3.5 w-3.5 text-slate-400 dark:text-slate-500" />
                         {member.name.toLowerCase().replace(/\s+/, ".")}@aangan.local
                       </div>

@@ -66,12 +66,32 @@ const statusColumns: TaskStatus[] = ["Pending", "Cleaning", "Ready", "Maintenanc
 
 const statusConfig: Record<
   TaskStatus,
-  { bg: string; badge: string; icon: typeof ClipboardList }
+  { bg: string; text: string; badge: string; icon: typeof ClipboardList }
 > = {
-  Pending: { bg: "bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800", badge: "warning", icon: ClipboardList },
-  Cleaning: { bg: "bg-blue-50 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800", badge: "outline", icon: ClipboardList },
-  Ready: { bg: "bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800", badge: "success", icon: CheckCircle2 },
-  Maintenance: { bg: "bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800", badge: "destructive", icon: Wrench },
+  Pending: { 
+    bg: "bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800", 
+    text: "text-amber-700 dark:text-amber-300",
+    badge: "warning", 
+    icon: ClipboardList 
+  },
+  Cleaning: { 
+    bg: "bg-blue-50 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800", 
+    text: "text-blue-700 dark:text-blue-300",
+    badge: "outline", 
+    icon: ClipboardList 
+  },
+  Ready: { 
+    bg: "bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800", 
+    text: "text-emerald-700 dark:text-emerald-300",
+    badge: "success", 
+    icon: CheckCircle2 
+  },
+  Maintenance: { 
+    bg: "bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800", 
+    text: "text-rose-700 dark:text-rose-300",
+    badge: "destructive", 
+    icon: Wrench 
+  },
 };
 
 const nextStatus: Record<TaskStatus, TaskStatus | null> = {
@@ -194,10 +214,10 @@ export function Housekeeping() {
           return (
             <div
               key={status}
-              className={`flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium ${config.bg}`}
+              className={`flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium ${config.bg} ${config.text}`}
             >
               <span>{status}</span>
-              <span className="rounded-full bg-white/70 dark:bg-black/20 px-1.5 py-0.5 text-xs font-bold">
+              <span className="rounded-full bg-white/70 dark:bg-slate-100/10 px-1.5 py-0.5 text-xs font-bold">
                 {count}
               </span>
             </div>
@@ -214,12 +234,12 @@ export function Housekeeping() {
           return (
             <div key={status} className="space-y-3">
               {/* Column header */}
-              <div className={`flex items-center justify-between rounded-2xl border px-4 py-2.5 ${config.bg}`}>
+              <div className={`flex items-center justify-between rounded-2xl border px-4 py-2.5 ${config.bg} ${config.text}`}>
                 <div className="flex items-center gap-2">
                   <config.icon className="h-4 w-4" />
                   <span className="text-sm font-semibold">{status}</span>
                 </div>
-                <span className="rounded-full bg-white/60 dark:bg-black/20 px-2 py-0.5 text-xs font-bold">
+                <span className="rounded-full bg-white/60 dark:bg-slate-100/10 px-2 py-0.5 text-xs font-bold">
                   {columnTasks.length}
                 </span>
               </div>
@@ -246,7 +266,7 @@ export function Housekeeping() {
                               <CardTitle className="text-sm">
                                 Room {task.roomNumber}
                               </CardTitle>
-                              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400 line-clamp-1">
+                              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-300 line-clamp-1">
                                 {task.roomType}
                               </p>
                             </div>
@@ -261,7 +281,7 @@ export function Housekeeping() {
                         <CardContent className="space-y-3 pb-3 pt-0">
                           {/* Progress */}
                           <div>
-                            <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500 mb-1">
+                            <div className="flex justify-between text-xs text-slate-400 dark:text-slate-300 mb-1">
                               <span>Checklist</span>
                               <span>{doneCount}/{task.checklist.length}</span>
                             </div>
@@ -354,8 +374,8 @@ export function Housekeeping() {
                 })}
 
                 {columnTasks.length === 0 && (
-                  <div className="grid min-h-24 place-items-center rounded-2xl border border-dashed border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-center">
-                    <p className="text-xs text-slate-400 dark:text-slate-500">No tasks</p>
+                  <div className="grid min-h-24 place-items-center rounded-2xl border border-dashed border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/40 text-center">
+                    <p className="text-xs text-slate-400 dark:text-slate-300 italic">No tasks</p>
                   </div>
                 )}
               </div>
