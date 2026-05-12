@@ -5,6 +5,8 @@ import {
   BedDouble,
   CalendarDays,
   ChefHat,
+  ChevronLeft,
+  ChevronRight,
   ClipboardList,
   CreditCard,
   Globe2,
@@ -83,6 +85,7 @@ export function DashboardShell() {
   const { user, property, setUserRole, logout } = useAuth() as any;
   const { theme, toggleTheme } = useTheme();
   const [view, setView] = useState<View>("overview");
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   const isOwner = user?.role === "Owner";
@@ -99,19 +102,21 @@ export function DashboardShell() {
     setMobileSidebarOpen(false);
   };
 
-  const SidebarContent = () => (
+  const SidebarContent = ({ collapsed = false }: { collapsed?: boolean }) => (
     <>
       {/* Brand */}
-      <div className="mb-6 flex items-center gap-2 px-2">
+      <div className={`mb-6 flex items-center gap-2 ${collapsed ? "justify-center px-0" : "px-2"}`}>
         <div className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-slate-950 dark:bg-slate-100">
           <BedDouble className="h-4 w-4 text-white dark:text-slate-950" />
         </div>
-        <div className="min-w-0">
-          <p className="truncate text-sm font-semibold text-slate-950 dark:text-slate-50">
-            {property?.name || "Aangan ERP"}
-          </p>
-          <p className="text-[10px] text-slate-400 dark:text-slate-500">Homestay ERP</p>
-        </div>
+        {!collapsed && (
+          <div className="min-w-0">
+            <p className="truncate text-sm font-semibold text-slate-950 dark:text-slate-50">
+              {property?.name || "Aangan ERP"}
+            </p>
+            <p className="text-[10px] text-slate-400 dark:text-slate-500">Homestay ERP</p>
+          </div>
+        )}
       </div>
 
       {/* Nav */}
@@ -124,14 +129,17 @@ export function DashboardShell() {
               <button
                 key={item.id}
                 onClick={() => navigate(item.id)}
-                className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium transition-all ${
+                title={collapsed ? item.label : ""}
+                className={`flex items-center rounded-xl transition-all ${
+                  collapsed ? "justify-center p-2.5" : "gap-3 px-3 py-2.5"
+                } ${
                   active
                     ? "bg-slate-950 dark:bg-slate-100 text-white dark:text-slate-950 shadow-sm"
                     : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-950 dark:hover:text-slate-50"
                 }`}
               >
                 <item.icon className={`h-4 w-4 shrink-0 ${active ? "text-white dark:text-slate-950" : "text-slate-400 dark:text-slate-500"}`} />
-                {item.label}
+                {!collapsed && <span className="truncate text-sm font-medium">{item.label}</span>}
               </button>
             );
           })}
@@ -139,28 +147,53 @@ export function DashboardShell() {
 
       {/* Bottom */}
       <div className="mt-auto pt-6">
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-3">
-          <p className="text-xs font-medium text-slate-950 dark:text-slate-50">{user?.name}</p>
-          <p className="text-[10px] text-slate-400 dark:text-slate-500">{user?.email}</p>
-          <div className="mt-3 flex gap-2">
-            <Button
-              size="sm"
-              variant={isOwner ? "default" : "outline"}
-              className="flex-1 text-xs"
-              onClick={() => setUserRole("Owner")}
+        {collapsed ? (
+          <div className="flex flex-col items-center gap-2">
+            <div className="h-8 w-8 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-[10px] font-bold">
+              {user?.name?.[0]}
+            </div>
+            <button
+              onClick={() => setSidebarCollapsed(false)}
+              className="flex h-8 w-8 items-center justify-center rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800"
             >
-              Owner
-            </Button>
-            <Button
-              size="sm"
-              variant={!isOwner ? "default" : "outline"}
-              className="flex-1 text-xs"
-              onClick={() => setUserRole("Staff")}
-            >
-              Staff
-            </Button>
+              <ChevronRight className="h-4 w-4" />
+            </button>
           </div>
-        </div>
+        ) : (
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-3">
+            <div className="flex items-center justify-between gap-2">
+              <div className="min-w-0">
+                <p className="truncate text-xs font-medium text-slate-950 dark:text-slate-50">{user?.name}</p>
+                <p className="truncate text-[10px] text-slate-400 dark:text-slate-500">{user?.email}</p>
+              </div>
+              <button
+                onClick={() => setSidebarCollapsed(true)}
+                className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:bg-white dark:hover:bg-slate-700 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                title="Collapse sidebar"
+              >
+                <ChevronLeft className="h-3 w-3" />
+              </button>
+            </div>
+            <div className="mt-3 flex gap-2">
+              <Button
+                size="sm"
+                variant={isOwner ? "default" : "outline"}
+                className="flex-1 px-1 text-[10px] h-7"
+                onClick={() => setUserRole("Owner")}
+              >
+                Owner
+              </Button>
+              <Button
+                size="sm"
+                variant={!isOwner ? "default" : "outline"}
+                className="flex-1 px-1 text-[10px] h-7"
+                onClick={() => setUserRole("Staff")}
+              >
+                Staff
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
@@ -168,8 +201,12 @@ export function DashboardShell() {
   return (
     <div className="flex min-h-screen bg-slate-50 dark:bg-slate-950">
       {/* Desktop sidebar */}
-      <aside className="fixed inset-y-0 left-0 hidden w-60 flex-col overflow-y-auto border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-5 lg:flex">
-        <SidebarContent />
+      <aside 
+        className={`fixed inset-y-0 left-0 hidden flex-col overflow-y-auto border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-5 lg:flex transition-all duration-300 ease-in-out ${
+          sidebarCollapsed ? "w-20" : "w-64"
+        }`}
+      >
+        <SidebarContent collapsed={sidebarCollapsed} />
       </aside>
 
       {/* Mobile sidebar drawer */}
@@ -203,7 +240,9 @@ export function DashboardShell() {
       </AnimatePresence>
 
       {/* Main content */}
-      <div className="flex flex-1 flex-col lg:pl-60">
+      <div className={`flex flex-1 flex-col transition-all duration-300 ease-in-out ${
+        sidebarCollapsed ? "lg:pl-20" : "lg:pl-64"
+      }`}>
         {/* Topbar */}
         <header className="sticky top-0 z-30 flex items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 px-4 py-3 backdrop-blur sm:px-6">
           <div className="flex items-center gap-3">
