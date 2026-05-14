@@ -6,11 +6,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const { passcode } = req.body;
-  const MASTER_PASS = process.env.GATE_PASS || "aangan2024";
+  const MASTER_PASS = (process.env as any).GATE_PASS || "aangan2024";
 
   if (passcode === MASTER_PASS) {
     // Set cookie via header since we're in a serverless function
-    res.setHeader('Set-Cookie', `lokmap_gate=${MASTER_PASS}; Path=/; HttpOnly; SameSite=Lax; Max-Age=31536000${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`);
+    const isProd = (process.env as any).NODE_ENV === 'production';
+    res.setHeader('Set-Cookie', `lokmap_gate=${MASTER_PASS}; Path=/; HttpOnly; SameSite=Lax; Max-Age=31536000${isProd ? '; Secure' : ''}`);
     return res.status(200).json({ success: true });
   }
 

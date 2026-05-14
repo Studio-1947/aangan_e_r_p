@@ -1,33 +1,41 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - assets (static files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!api|assets|favicon.ico).*)',
+  ],
+};
 
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+export default function middleware(request: Request) {
+  const url = new URL(request.url);
+  const pathname = url.pathname;
   
   // Allow these paths without authentication
   const publicPaths = ['/api/gatekeeper', '/_next', '/assets', '/favicon.ico', '/index.html'];
   
-  // In Vite, we don't usually have a separate /login.html, it's all handled by App.tsx.
-  // But we want to allow the SPA to load so it can show its own login page if it handles the gate.
-  // HOWEVER, for "gatekeeping" we usually want to block the bundle itself.
-  
-  // For now, let's allow everything to reach the client, but the client will show the gate.
-  // Actually, to be "Pro Secure" like lok-map, we should block the main page.
-  
-  // Check for the gatekeeper cookie
-  const gateCookie = request.cookies.get('lokmap_gate');
-  const masterPass = process.env.GATE_PASS || 'aangan2024';
-
-  if (gateCookie?.value === masterPass) {
-    return NextResponse.next();
-  }
-
-  // If we are already on a "public" looking path or an asset, allow it
+  // Skip public paths and files with extensions (assets)
   if (publicPaths.some(path => pathname.startsWith(path)) || pathname.includes('.')) {
-    return NextResponse.next();
+    return new Response(null, { headers: { 'x-middleware-next': '1' } });
   }
 
-  // Otherwise, we allow the request to proceed but the App.tsx must handle the UI gate.
-  // In a Vite SPA, if we redirect to /login, the SPA must have a /login route.
-  return NextResponse.next();
+  // Parse Cookie header manually for non-Next environments
+  const cookieHeader = request.headers.get('cookie') || '';
+  const cookies = Object.fromEntries(cookieHeader.split('; ').map(c => {
+    const [key, ...value] = c.split('=');
+    return [key?.trim(), value.join('=')];
+  }));
+  
+  const gateCookie = cookies['lokmap_gate'];
+  const masterPass = (process.env as any).GATE_PASS || 'aangan2024';
+
+  if (gateCookie === masterPass) {
+    return new Response(null, { headers: { 'x-middleware-next': '1' } });
+  }
+
+  // For SPAs, we allow the request but the client app handles the UI gate.
+  return new Response(null, { headers: { 'x-middleware-next': '1' } });
 }
