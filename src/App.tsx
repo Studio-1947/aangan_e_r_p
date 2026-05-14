@@ -26,7 +26,7 @@ function App() {
   }
 
   if (view === "login") {
-    return <Login onSignup={() => setView("onboarding")} />;
+    return <Login />;
   }
 
   return (

@@ -1,4 +1,4 @@
-import { ArrowRight, Building2, KeyRound } from "lucide-react";
+import { Building2, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { Button } from "../../components/ui/button";
 import {
@@ -12,21 +12,42 @@ import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { useAuth } from "../../context/AuthContext";
 
-export function Login({ onSignup }: { onSignup: () => void }) {
-  const { loginDemoSuperuser, loginWithCredentials } = useAuth();
-  const [email, setEmail] = useState("owner@aangan.demo");
+export function Login() {
+  const { loginDemoSuperuser } = useAuth();
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
 
   // Credential login checks hardcoded demo credentials in AuthContext.
-  const handleCredentialLogin = (event: React.FormEvent<HTMLFormElement>) => {
+  const [isPending, setIsPending] = useState(false);
+
+  const handleCredentialLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError("");
+    setIsPending(true);
 
-    const result = loginWithCredentials(email, password, rememberMe);
-    if (!result.ok) {
-      setError(result.error);
+    try {
+      // Pro Secure: Check the passcode via the serverless API
+      const response = await fetch('/api/gatekeeper', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ passcode: password }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // If passcode is correct, we are "gated" in.
+        // We also trigger the demo login to satisfy the app's internal state
+        loginDemoSuperuser(rememberMe);
+      } else {
+        setError(result.error || "Invalid Passcode. Access Denied.");
+      }
+    } catch (err) {
+      setError("An error occurred during authentication.");
+    } finally {
+      setIsPending(false);
     }
   };
 
@@ -40,10 +61,9 @@ export function Login({ onSignup }: { onSignup: () => void }) {
               Aangan ERP
             </div>
             <div className="space-y-2">
-              <CardTitle className="text-3xl">Welcome back</CardTitle>
+              <CardTitle className="text-3xl">Gatekeeper Access</CardTitle>
               <CardDescription className="text-base leading-7">
-                Sign in with demo credentials, quick demo access, or create a
-                new account.
+                This project is currently protected. Please enter the master passcode to enter the ERP.
               </CardDescription>
             </div>
           </CardHeader>
@@ -52,29 +72,27 @@ export function Login({ onSignup }: { onSignup: () => void }) {
               className="grid gap-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50/80 dark:bg-slate-800/50 p-4"
               onSubmit={handleCredentialLogin}
             >
-              <div className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
-                <KeyRound className="h-4 w-4" />
-                Credential Login
-              </div>
               <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  placeholder="owner@aangan.demo"
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  placeholder="Enter your password"
-                />
+                <Label htmlFor="password">Passcode</Label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                    placeholder="Enter master passcode"
+                    disabled={isPending}
+                    className="pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors focus:outline-none"
+                    aria-label={showPassword ? "Hide passcode" : "Show passcode"}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
               </div>
               <label className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
                 <input
@@ -86,14 +104,15 @@ export function Login({ onSignup }: { onSignup: () => void }) {
                 Remember me
               </label>
               {error ? <p className="text-sm text-rose-600 dark:text-rose-400">{error}</p> : null}
-              <Button type="submit" className="w-full">
-                Login with Credentials
+              <Button type="submit" className="w-full" disabled={isPending}>
+                {isPending ? "Verifying..." : "Unlock ERP"}
               </Button>
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 Demo credentials: owner@aangan.demo / owner123
               </p>
             </form>
 
+            {/* 
             <Button
               className="w-full"
               onClick={() => loginDemoSuperuser(rememberMe)}
@@ -103,7 +122,8 @@ export function Login({ onSignup }: { onSignup: () => void }) {
             </Button>
             <Button className="w-full" variant="outline" onClick={onSignup}>
               Sign up
-            </Button>
+            </Button> 
+            */}
           </CardContent>
         </Card>
       </div>
